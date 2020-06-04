@@ -32,6 +32,7 @@ dependencies:
   http: 
   image_picker: ^0.6.7
   mime_type: ^0.3.1
+  shared_preferences: ^0.5.7+3
 
 dev_dependencies:
   flutter_test:
