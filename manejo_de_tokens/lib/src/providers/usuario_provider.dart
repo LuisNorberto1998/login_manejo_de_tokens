@@ -4,7 +4,7 @@ import 'dart:convert';
 
 class UsuarioProvider {
   final _firebaseToken = 'AIzaSyB6txCnbhbp4F8dGPCsnDucoHTt3bkOPF8';
-  final _prefs =  new PreferenciasUsuario();
+  final _prefs = new PreferenciasUsuario();
 
   //Inicio de sesión
   Future<Map<String, dynamic>> login(String email, String password) async {
@@ -24,11 +24,10 @@ class UsuarioProvider {
     print(decodeResp);
 
     if (decodeResp.containsKey('idToken')) {
-      //TODO: Salvar el token
       _prefs.token = decodeResp['idToken'];
       return {'ok': true, 'token': decodeResp['idToken']};
     } else {
-      return {'ok': true, 'mensaje': decodeResp['error']['menssage']};
+      return {'ok': false, 'mensaje': decodeResp['error']['message']};
     }
   }
 
@@ -51,10 +50,10 @@ class UsuarioProvider {
     print(decodeResp);
 
     if (decodeResp.containsKey('idToken')) {
-      //TODO: Salvar el token
+      _prefs.token = decodeResp['idToken'];
       return {'ok': true, 'token': decodeResp['idToken']};
     } else {
-      return {'ok': true, 'mensaje': decodeResp['error']['menssage']};
+      return {'ok': false, 'mensaje': decodeResp['error']['message']};
     }
   }
 }
