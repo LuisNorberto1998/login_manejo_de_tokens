@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:formvalidation/src/blocs/provider.dart';
+import 'package:formvalidation/src/providers/usuario_provider.dart';
 
 class RegistroPage extends StatelessWidget {
+  final usuarioProvide = new UsuarioProvider();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: <Widget>[
           _crearFondo(context),
-          _loginForm(context),
+          _registerForm(context),
         ],
       ),
     );
@@ -82,7 +85,7 @@ class RegistroPage extends StatelessWidget {
     );
   }
 
-  Widget _loginForm(BuildContext context) {
+  Widget _registerForm(BuildContext context) {
     final bloc = Provider.of(context);
     final size = MediaQuery.of(context).size;
     return SingleChildScrollView(
@@ -123,8 +126,7 @@ class RegistroPage extends StatelessWidget {
           ),
           FlatButton(
             child: Text('¿Ya tienes cuenta?'),
-            onPressed: () =>
-                Navigator.pushReplacementNamed(context, 'login'),
+            onPressed: () => Navigator.pushReplacementNamed(context, 'login'),
           ),
           SizedBox(height: 100.0)
         ],
@@ -187,19 +189,15 @@ class RegistroPage extends StatelessWidget {
           elevation: 0.0,
           color: Colors.deepPurple,
           textColor: Colors.white,
-          onPressed: snapshot.hasData ? () => _login(bloc, context) : null,
+          onPressed: snapshot.hasData ? () => _register(bloc, context) : null,
         );
       },
       stream: bloc.formValidStream,
     );
   }
 
-  _login(LoginBloc bloc, BuildContext context) {
-    print('=============================================');
-    print('Email: ${bloc.email}');
-    print('Password: ${bloc.password}');
-    print('=============================================');
-
-    Navigator.pushReplacementNamed(context, 'home');
+  _register(LoginBloc bloc, BuildContext context) {
+    usuarioProvide.nuevoUsuario(bloc.email, bloc.password);
+    // Navigator.pushReplacementNamed(context, 'home');
   }
 }
