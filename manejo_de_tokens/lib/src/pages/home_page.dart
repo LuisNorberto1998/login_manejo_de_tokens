@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:formvalidation/src/blocs/provider.dart';
 import 'package:formvalidation/src/models/producto_model.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final productosBloc = Provider.productosBloc(context);
@@ -19,7 +24,8 @@ class HomePage extends StatelessWidget {
 
   _crearBoton(BuildContext context) {
     return FloatingActionButton(
-      onPressed: () => Navigator.pushNamed(context, 'producto'),
+      onPressed: () => Navigator.pushNamed(context, 'producto')
+          .then((value) => setState(() {})),
       backgroundColor: Colors.deepPurple,
       child: Icon(Icons.add),
     );
@@ -70,7 +76,8 @@ class HomePage extends StatelessWidget {
               title: Text('${producto.titulo} - ${producto.valor}'),
               subtitle: Text(producto.id),
               onTap: () =>
-                  Navigator.pushNamed(context, 'producto', arguments: producto),
+                  Navigator.pushNamed(context, 'producto', arguments: producto)
+                      .then((value) => setState(() {})),
             ),
           ],
         ),
